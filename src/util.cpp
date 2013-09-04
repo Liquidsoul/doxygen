@@ -4917,11 +4917,7 @@ FileDef *findFileDef(const FileNameDict *fnDict,const char *n,bool &ambig)
     if (fn->count()==1)
     {
       FileDef *fd = fn->getFirst();
-#if defined(_WIN32) || defined(__MACOSX__) // Windows or MacOSX
-      bool isSamePath = fd->getPath().right(path.length()).lower()==path.lower();
-#else // Unix
-      bool isSamePath = fd->getPath().right(path.length())==path;
-#endif
+      bool isSamePath = (qstricmp(fd->getPath().right(path.length()), path) == 0);
       if (path.isEmpty() || isSamePath)
       {
         cachedResult->fileDef = fd;
@@ -4940,7 +4936,7 @@ FileDef *findFileDef(const FileNameDict *fnDict,const char *n,bool &ambig)
       for (fni.toFirst();(fd=fni.current());++fni)
       {
         QCString fdStripPath = stripFromIncludePath(fd->getPath());
-        if (path.isEmpty() || fdStripPath.right(pathStripped.length())==pathStripped) 
+        if (path.isEmpty() || (qstricmp(fdStripPath.right(pathStripped.length()), pathStripped) == 0))
         { 
           count++; 
           lastMatch=fd; 
