@@ -3025,7 +3025,7 @@ void preprocessFile(const char *fileName,BufStr &input,BufStr &output)
 	  if ((argIndex=argDict[tmp.mid(p,l)])!=0)
 	  {
 	    QCString marker;
-	    marker.sprintf(" @%d ",*argIndex);
+	    marker.sprintf("@%d",*argIndex);
 	    definition+=marker;
 	  }
 	  else
